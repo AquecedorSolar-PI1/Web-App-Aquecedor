@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aquecedor</title>
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBMCZ9HIuKMXefFX3Sqi-ixuB99_g130VY",
+        authDomain: "aquecedorunb-4264d.firebaseapp.com",
+        databaseURL: "https://aquecedorunb-4264d.firebaseio.com",
+        projectId: "aquecedorunb-4264d",
+        storageBucket: "aquecedorunb-4264d.appspot.com",
+        messagingSenderId: "311965481488"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+
+    <!-- TODO add manifest here -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Room">
+    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+    <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#2F3BA2">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+  </head>
+  <body>
+
+    <!-- Toolbar -->
+    <header class="header">
+      <h1 class="header__title">Aquecedor</h1>
+      <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
+      <button id="butAdd" class="headerButton" aria-label="Add"></button>
+    </header>
+    
+
+    <!-- List of buttons-->
+    <main class="main">
+      <div class="container">
+      
+        <div class="card">
+            <div class="card-header" id="card-header-temperature">
+              <i class="fa fa-thermometer-half" style="color: white; font-size: 30px; margin-top: 20px;" aria-hidden="true"></i>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Temperatura</h2>
+              <p class="card-breaf"></p>
+
+              <p style="text-align: center; font-weight: bold; font-size: 50px; color: #313A3E">26</p>
+              <p style="text-align: center; color: #676767;">celcius</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="card-header-energy">
+              <i class="fa fa-bolt" style="color: white; font-size: 30px; margin-top: 20px;" aria-hidden="true"></i>
+              <!--i class="fa fa-thermometer-half" style="color: white; font-size: 100px; margin-top: 20px;" aria-hidden="true"></i-->
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Energia</h2>  
+              <p class="card-breaf"></p>
+
+              <p style="text-align: center; font-weight: bold; font-size: 50px; color: #313A3E">45</p>
+              <p style="text-align: center; color: #676767;">kW/HOUR</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="card-header-valves">
+              <i class="fa fa-cogs" style="color: white; font-size: 30px; margin-top: 20px;" aria-hidden="true"></i>
+              <!--i class="fa fa-thermometer-half" style="color: white; font-size: 100px; margin-top: 20px;" aria-hidden="true"></i-->
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Valvulas e Bombas</h2>
+              <p class="card-breaf"></p>
+              
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Valvula Painel</p>
+                <i class="fa fa-circle" style="color: #e55542; font-size:20px;" aria-hidden="true"></i>
+              </div>
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Bomba Filtro</p>
+                <i class="fa fa-circle" style="color: #42e557;font-size:20px;" aria-hidden="true"></i>
+              </div>
+                
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Misturador</p>
+                <i class="fa fa-circle" style="color: #e55542; font-size:20px;" aria-hidden="true"></i>
+              </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="card-header-sensors">
+              <i class="fa fa-bar-chart" style="color: white; font-size: 30px; margin-top: 20px;" aria-hidden="true"></i>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Sensores</h2>
+              <p class="card-breaf"></p>
+
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Temperatura Piscina</p>
+                <p style="color: #676767; display: inline-block;"> 0.0 </p>
+              </div>
+
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Temperatura Saida Placa</p>
+                <p style="color: #676767; display: inline-block;"> 0.0</p>
+              </div>
+
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Temperatura Tanque</p>
+                <p style="color: #676767; display: inline-block;"> 0.0</p>
+              </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="card-header-tank">
+              <i class="fa fa-tasks" style="color: white; font-size: 30px; margin-top: 20px;" aria-hidden="true"></i>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Tanque</h2>
+              <p class="card-breaf"></p>
+              
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Volume Tanque</p>
+                <p style="color: #676767; display: inline-block;"> 900 L</p>
+              </div>
+
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Volume Minino</p>
+                <p style="color: #676767; display: inline-block;"> 750 L</p>
+              </div>
+              
+              <div>
+                <p style="color: #676767; display: inline-block; width: 80%;">Volume Maximo</p>
+                <p style="color: #676767; display: inline-block;"> 1050 L</p>
+              </div>
+            </div>
+        </div>
+      </div>   
+    </main>
+
+    <div class="dialog-container">
+      <div class="dialog">
+        <div class="dialog-buttons">
+          <button id="butAddCity" class="button">Add</button>
+          <button id="butAddCancel" class="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="loader" hidden>
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+      </svg>
+    </div>
+
+    <script src="scripts/app.js"></script>
+    
+  </body>
+</html>
